@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.WindowEvent;
 
 import Panels.*;
@@ -9,6 +10,7 @@ import Panels.*;
 public class mainApp extends JFrame implements AppInterface {
     public JPanel currentPanel;
     private MyMenu menuPage;
+    private String uname;
 
     public mainApp() {
         super();
@@ -32,12 +34,13 @@ public class mainApp extends JFrame implements AppInterface {
     public void displayMenu(String user) {
         this.remove(currentPanel);
         currentPanel = menuPage;
+        uname = user;
         menuPage.setVisible(true);
         menuPage.setLocation(0, 0);
     }
 
     public void call4x4() {
-        App4_4 obj = new App4_4();
+        App4_4 obj = new App4_4(this);
         currentPanel.setVisible(false);
         obj.setBounds(0, 0, 900, 500);
         currentPanel = obj;
@@ -47,11 +50,28 @@ public class mainApp extends JFrame implements AppInterface {
     }
 
     public void call3x3() {
-        App3_3 obj = new App3_3();
+        App3_3 obj = new App3_3(this);
         currentPanel.setVisible(false);
         obj.setBounds(0, 0, 900, 500);
         currentPanel = obj;
         this.add(obj);
+        revalidate();
+        repaint();
+    }
+
+    public void callComp() {
+        Competitive obj = new Competitive(this);
+        currentPanel.setVisible(false);
+        obj.setBounds(0, 0, 900, 500);
+        currentPanel = obj;
+        this.add(obj);
+        revalidate();
+        repaint();
+    }
+
+    public void removeChild() {
+        this.remove(currentPanel);
+        this.displayMenu(uname);
         revalidate();
         repaint();
     }
@@ -69,6 +89,7 @@ public class mainApp extends JFrame implements AppInterface {
     public static void main(String[] args) {
         mainApp Window = new mainApp();
         // Login loginPage = new Login(Window);
+        Window.uname = "DEV BUILD";
         MyMenu menu = new MyMenu(Window);
         Window.currentPanel = menu;
         menu.setBounds(0, 0, 900, 500);
