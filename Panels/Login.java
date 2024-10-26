@@ -81,7 +81,7 @@ public class Login extends JPanel {
         try {
             String u = "", p = "";
             int flag = 0;
-            File userfile = new File("C:\\Users\\Sriniv\\OneDrive - SSN-Institute\\New folder\\OOPS\\miniproj");
+            File userfile = new File("assets/users.txt");
             Scanner in = new Scanner(userfile);
             while (in.hasNextLine()) {
                 String line = in.nextLine();
@@ -93,16 +93,13 @@ public class Login extends JPanel {
                         System.out.println(u);
                         p = line.substring(i + 1);
                         System.out.println(p);
+                        if (u.equals(username) && p.equals(password)) {
+                            flag = 1;
+                        }
                         break;
                     }
                     i++;
                 }
-                if (u.equals(username) && p.equals(password)) {
-                    flag = 1;
-                } else {
-                    flag = 0;
-                }
-            }
             if (flag == 1) {
                 parent.displayMenu(username);
                 return true;
