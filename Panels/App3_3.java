@@ -48,13 +48,14 @@ public class App3_3 extends JPanel {
     int[] actualState = { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
     Color bgColor = Color.red;
     private int moves = 0;
-
+    private AppInterface parent;
     JButton shuffleButton = new JButton("SHUFFLE");
+    JButton backButton = new JButton("BACK");
     JLabel Labelmoves = new JLabel("MOVES : " + moves, 0);
 
-    public App3_3() {
+    public App3_3(AppInterface p) {
         super(null);
-
+        parent = p;
         setBackground(new Color(50, 0, 255));
         // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 500);
@@ -67,28 +68,37 @@ public class App3_3 extends JPanel {
         shuffleButton.setBackground(Color.BLACK);
         shuffleButton.setForeground(Color.yellow);
         shuffleButton.setFont(new Font("Times New Roman", 1, 20));
+
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.yellow);
+        backButton.setFont(new Font("Times New Roman", 1, 20));
+
         Labelmoves.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         Labelmoves.setBackground(Color.BLACK);
         Labelmoves.setOpaque(true);
         Labelmoves.setForeground(Color.YELLOW);
         Labelmoves.setFont(new Font("Times New Roman", 1, 20));
 
-        shuffleButton.setBounds(500, 150, 200, 50);
-        Labelmoves.setBounds(500, 300, 200, 50);
+        Labelmoves.setBounds(500, 200, 200, 50);
+        shuffleButton.setBounds(500, 300, 200, 50);
+        backButton.setBounds(500, 370, 200, 50);
 
+        this.add(backButton);
         this.add(shuffleButton);
         this.add(Labelmoves);
 
         shuffleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Shuffle Button clicked");
-
                 shuffle(30);
-
             }
         });
-
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.removeChild();
+            }
+        });
         JPanel gamePanel = new JPanel(null);
         gamePanel.setBackground(bgColor);
         add(gamePanel);
@@ -116,7 +126,7 @@ public class App3_3 extends JPanel {
         }
         buttonArray[8] = bnull;
         gamePanel.add(buttonArray[8]);
-        // SwingUtilities.invokeLater(() ->shuffle(30));
+        SwingUtilities.invokeLater(() -> shuffle(30));
 
     }
 
@@ -247,68 +257,4 @@ public class App3_3 extends JPanel {
 
         return Arrays.copyOf(moves, count);
     }
-
-    public static void main(String[] args) {
-        App3_3 puzzle = new App3_3();
-        JFrame mainWindow = new JFrame();
-        System.out.println(puzzle.Labelmoves);
-        mainWindow.setLayout(null);
-        puzzle.setBounds(0, 0, 900, 500);
-        mainWindow.add(puzzle);
-        mainWindow.setBounds(100, 100, 900, 500);
-        // mainWindow.getContentPane().setBackground(Color.GREEN);
-        mainWindow.setVisible(true);
-        // mainWindow.setBackground(Color.green);
-        mainWindow.setResizable(false);
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 }
-// setbounds (60,47,365,365)
-// appbound
-
-// public class puzzle3x3 {
-// public static void main(String[] args) {
-// App3_3 puzzle = new App3_3();
-// JFrame mainWindow = new JFrame();
-// mainWindow.setTitle("Puzzle game 3 X 3");
-// JButton shuffleButton = new JButton("Shuffle");
-// shuffleButton.setBounds(700,200,100,50);
-// shuffleButton.setBackground(Color.BLACK);
-// shuffleButton.setForeground(Color.yellow);
-// mainWindow.add(shuffleButton);
-// shuffleButton.addActionListener(new ActionListener() {
-// @Override
-// public void actionPerformed(ActionEvent e) {
-// System.out.println("Shuffle Button clicked");
-
-// puzzle.shuffle(30);
-
-// }
-// });
-// JButton movesButton = new JButton("Moves: "+puzzle.moves);
-// movesButton.setForeground(Color.yellow);
-// movesButton.setBackground(Color.BLACK);
-// movesButton.setBounds(700,300,100,50);
-
-// mainWindow.add(movesButton);
-
-// Timer t = new Timer(0, new ActionListener() {
-// @Override
-// public void actionPerformed(ActionEvent e) {
-// movesButton.setText("Moves: "+puzzle.moves);
-// }
-// });
-// t.start();
-
-// mainWindow.setLayout(null);
-// puzzle.setBounds(60,47,275,275);
-// mainWindow.add(puzzle);
-// mainWindow.setBounds(100,100,900,500);
-// mainWindow.getContentPane().setBackground(Color.GREEN);
-// mainWindow.setVisible(true);
-// mainWindow.setBackground(Color.green);
-// mainWindow.setResizable(false);
-// mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-// }
-// }

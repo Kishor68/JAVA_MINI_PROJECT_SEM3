@@ -1,5 +1,7 @@
 package Panels;
 
+import java.awt.Component;
+
 public interface AppInterface {
     public void destroy();
 
@@ -10,4 +12,8 @@ public interface AppInterface {
     public void displayMenu(String user);
 
     public void showCreatePage();
+
+    public void callComp();
+
+    public void removeChild();
 }

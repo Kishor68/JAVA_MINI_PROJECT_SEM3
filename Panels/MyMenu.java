@@ -43,5 +43,11 @@ public class MyMenu extends JPanel {
                 parent.call3x3();
             }
         });
+        co.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.callComp();
+            }
+        });
     }
 }

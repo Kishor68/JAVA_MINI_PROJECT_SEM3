@@ -49,11 +49,13 @@ public class App4_4 extends JPanel {
     Color bg = Color.RED;
     private int moves = 0;
     JButton shuffleButton = new JButton("SHUFFLE");
+    JButton backButton = new JButton("BACK");
     JLabel Labelmoves = new JLabel("MOVES : " + moves, 0);
+    private AppInterface parent;
 
-    public App4_4() {
+    public App4_4(AppInterface p) {
         super(null);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        parent = p;
         setSize(900, 500);
         setMaximumSize(getSize());
         setMinimumSize(getSize());
@@ -71,27 +73,38 @@ public class App4_4 extends JPanel {
         shuffleButton.setBackground(Color.BLACK);
         shuffleButton.setForeground(Color.yellow);
         shuffleButton.setFont(new Font("Times New Roman", 1, 20));
+
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.yellow);
+        backButton.setFont(new Font("Times New Roman", 1, 20));
+
         Labelmoves.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         Labelmoves.setBackground(Color.BLACK);
         Labelmoves.setOpaque(true);
         Labelmoves.setForeground(Color.YELLOW);
         Labelmoves.setFont(new Font("Times New Roman", 1, 20));
 
-        shuffleButton.setBounds(500, 150, 200, 50);
-        Labelmoves.setBounds(500, 300, 200, 50);
+        Labelmoves.setBounds(500, 200, 200, 50);
+        shuffleButton.setBounds(500, 300, 200, 50);
+        backButton.setBounds(500, 370, 200, 50);
 
+        add(backButton);
         add(shuffleButton);
         add(Labelmoves);
 
         shuffleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Shuffle Button clicked");
-
                 shuffle(50);
-
             }
         });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.removeChild();
+            }
+        });
+
         bnull.setBounds(275, 275, 85, 85);
         bnull.setBorder(BorderFactory.createEmptyBorder());
         bnull.setBackground(bg);
@@ -220,7 +233,6 @@ public class App4_4 extends JPanel {
                     }
                 }
                 next = possible_moves[rand.nextInt(possible_moves.length - found)];
-                // System.out.printf("%d,", next);
                 int move = next;
                 swap(nullpos, move);
                 prev = nullpos;
